@@ -1,4 +1,11 @@
-export const languages = [
+import { useStore } from '@builder.io/qwik';
+
+export interface Language {
+  code: string;
+  name: string;
+}
+
+export const languages: Language[] = [
   { code: 'en', name: 'English' },
   { code: 'zh', name: '中文 (Mandarin)' },
   { code: 'hi', name: 'हिन्दी (Hindi)' },
@@ -279,8 +286,8 @@ export const translations: Record<string, Record<string, string>> = {
     blessed: "祝福された。",
     skillsCount: "他 {0} のスキル",
     year: "年", years: "年", month: "ヶ月", months: "ヶ月",
-    skillsDetails1: "Labi9と他2社での3つの経験。João Cabralと他2名の共通のつながりによって推薦されたスキル。",
-    skillsDetails2: "SIALOG Software Solutionsと他1社での3つの経験。Guilherme Limaと他2名の共通のつながりによって推薦されたスキル。"
+    skillsDetails1: "Labi9 と他 2 社での 3 つの経験。João Cabral と他 2 名の共通のつながりによって推薦されたスキル。",
+    skillsDetails2: "SIALOG Software Solutions と他 1 社での 3 つの経験。Guilherme Lima と他 2 名の共通のつながりによって推薦されたスキル。"
   },
   mr: {
     role: "सॉफ्टवेअर इंजिनिअर",
@@ -397,10 +404,10 @@ export const translations: Record<string, Record<string, string>> = {
     rights: "모든 권리 보유.",
     developedBy: "개발자",
     blessed: "축복받은.",
-    skillsCount: "외 {0}개 기술",
+    skillsCount: "외 {0} 개 기술",
     year: "년", years: "년", month: "개월", months: "개월",
-    skillsDetails1: "Labi9 및 2개 이상의 회사에서 3번의 경험. João Cabral 및 2명의 상호 연결이 추천한 기술.",
-    skillsDetails2: "SIALOG Software Solutions 및 1개 이상의 회사에서 3번의 경험. Guilherme Lima 및 2명의 상호 연결이 추천한 기술."
+    skillsDetails1: "Labi9 및 2 개 이상의 회사에서 3 번의 경험. João Cabral 및 2 명의 상호 연결이 추천한 기술.",
+    skillsDetails2: "SIALOG Software Solutions 및 1 개 이상의 회사에서 3 번의 경험. Guilherme Lima 및 2 명의 상호 연결이 추천한 기술."
   },
   it: {
     role: "Ingegnere del Software",
@@ -427,10 +434,24 @@ export const translations: Record<string, Record<string, string>> = {
 export function t(lang: string, key: string, ...args: string[]): string {
   const dict = translations[lang] || translations['pt'];
   let text = dict[key] || translations['pt'][key] || key;
-  
+
   args.forEach((arg, i) => {
     text = text.replace(`{${i}}`, arg);
   });
-  
+
   return text;
 }
+
+export interface I18nStore {
+  lang: string;
+  theme: 'light' | 'dark';
+  isFirstVisit: boolean;
+}
+
+export const createI18nStore = () => {
+  return useStore<I18nStore>({
+    lang: 'pt',
+    theme: 'dark',
+    isFirstVisit: true,
+  });
+};
