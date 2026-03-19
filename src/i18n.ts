@@ -40,7 +40,12 @@ export const translations: Record<string, Record<string, string>> = {
     skillsCount: "and {0} more skills",
     year: "year", years: "years", month: "month", months: "months",
     skillsDetails1: "3 experiences at Labi9 and 2 more companies. Skill recommended by João Cabral and 2 more mutual connections.",
-    skillsDetails2: "3 experiences at SIALOG Software Solutions and 1 more company. Skill recommended by Guilherme Lima and 2 more mutual connections."
+    skillsDetails2: "3 experiences at SIALOG Software Solutions and 1 more company. Skill recommended by Guilherme Lima and 2 more mutual connections.",
+    "theme.light": "Switch to light mode",
+    "theme.dark": "Switch to dark mode",
+    "meta.description": "Allan Kayan - Software Engineer specialized in backend development. Building amazing solutions.",
+    "meta.keywords": "Allan Kayan, Software Engineer, Backend Developer, Node.js, TypeScript, Python, Brazil",
+    "nav.home": "Go to home"
   },
   pt: {
     role: "Engenheiro de Software",
@@ -60,7 +65,12 @@ export const translations: Record<string, Record<string, string>> = {
     skillsCount: "e mais {0} competências",
     year: "ano", years: "anos", month: "mês", months: "meses",
     skillsDetails1: "3 experiências na empresa Labi9 e em mais 2 empresas. Competência recomendada por João Cabral e mais 2 conexões em comum.",
-    skillsDetails2: "3 experiências na empresa SIALOG Software Solutions e em mais 1 empresa. Competência recomendada por Guilherme Lima e mais 2 conexões em comum."
+    skillsDetails2: "3 experiências na empresa SIALOG Software Solutions e em mais 1 empresa. Competência recomendada por Guilherme Lima e mais 2 conexões em comum.",
+    "theme.light": "Ativar modo claro",
+    "theme.dark": "Ativar modo escuro",
+    "meta.description": "Allan Kayan - Engenheiro de Software especializado em backend. Construindo soluções incríveis.",
+    "meta.keywords": "Allan Kayan, Engenheiro de Software, Backend Developer, Node.js, TypeScript, Python, Brasil",
+    "nav.home": "Ir para o início"
   },
   es: {
     role: "Ingeniero de Software",
@@ -80,7 +90,12 @@ export const translations: Record<string, Record<string, string>> = {
     skillsCount: "y {0} habilidades más",
     year: "año", years: "años", month: "mes", months: "meses",
     skillsDetails1: "3 experiencias en Labi9 y 2 empresas más. Habilidad recomendada por João Cabral y 2 conexiones mutuas más.",
-    skillsDetails2: "3 experiencias en SIALOG Software Solutions y 1 empresa más. Habilidad recomendada por Guilherme Lima y 2 conexiones mutuas más."
+    skillsDetails2: "3 experiencias en SIALOG Software Solutions y 1 empresa más. Habilidad recomendada por Guilherme Lima y 2 conexiones mutuas más.",
+    "theme.light": "Cambiar a modo claro",
+    "theme.dark": "Cambiar a modo oscuro",
+    "meta.description": "Allan Kayan - Ingeniero de Software especializado en backend. Construyendo soluciones increíbles.",
+    "meta.keywords": "Allan Kayan, Ingeniero de Software, Backend Developer, Node.js, TypeScript, Python",
+    "nav.home": "Ir al inicio"
   },
   zh: {
     role: "软件工程师",

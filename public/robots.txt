@@ -1,0 +1,12 @@
+# Robots.txt para Allan Kayan Portfolio
+# Permite acesso a todos os crawlers principais
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://allankayan.com/sitemap.xml
+
+# Bloquear áreas administrativas ou internas (se houver)
+Disallow: /admin/
+Disallow: /api/
