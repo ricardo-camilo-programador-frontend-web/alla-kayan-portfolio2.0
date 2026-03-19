@@ -1,9 +1,10 @@
-import { lazy, Suspense, useState, useEffect, useMemo } from 'react';
+import { lazy, Suspense, useState, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'motion/react';
 import { Sun, Moon } from 'lucide-react';
 import { ThemeProvider, useTheme } from './contexts/ThemeContext';
 import { useI18n } from './hooks/useI18n';
+import { languages } from './i18n';
 import HeroSection from './components/HeroSection';
 import LanguageSelector from './components/LanguageSelector';
 
@@ -12,31 +13,9 @@ const EducationSection = lazy(() => import('./components/EducationSection'));
 const SkillsSection = lazy(() => import('./components/SkillsSection'));
 const Footer = lazy(() => import('./components/Footer'));
 
-const languages = [
-  { code: 'en', name: 'English' },
-  { code: 'zh', name: '中文 (Mandarin)' },
-  { code: 'hi', name: 'हिन्दी (Hindi)' },
-  { code: 'es', name: 'Español' },
-  { code: 'fr', name: 'Français' },
-  { code: 'ar', name: 'العربية (Arabic)' },
-  { code: 'bn', name: 'বাংলা (Bengali)' },
-  { code: 'ru', name: 'Русский (Russian)' },
-  { code: 'pt', name: 'Português' },
-  { code: 'ur', name: 'اردو (Urdu)' },
-  { code: 'id', name: 'Bahasa Indonesia' },
-  { code: 'de', name: 'Deutsch' },
-  { code: 'ja', name: '日本語 (Japanese)' },
-  { code: 'mr', name: 'मराठी (Marathi)' },
-  { code: 'te', name: 'తెలుగు (Telugu)' },
-  { code: 'tr', name: 'Türkçe' },
-  { code: 'ta', name: 'தமிழ் (Tamil)' },
-  { code: 'vi', name: 'Tiếng Việt' },
-  { code: 'ko', name: '한국어 (Korean)' },
-  { code: 'it', name: 'Italiano' },
-];
-
 function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
+  const { t } = useI18n();
 
   return (
     <motion.button
@@ -44,7 +23,7 @@ function ThemeToggle() {
       className="p-2.5 rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      aria-label={theme === 'dark' ? 'Ativar modo claro' : 'Ativar modo escuro'}
+      aria-label={theme === 'dark' ? t('theme.light') : t('theme.dark')}
     >
       <AnimatePresence mode="wait" initial={false}>
         {theme === 'dark' ? (
@@ -75,16 +54,14 @@ function ThemeToggle() {
 
 function AppContent() {
   const { lang, t } = useI18n();
-  const [isFirstVisit, setIsFirstVisit] = useState(true);
-
-  useEffect(() => {
+  const [isFirstVisit] = useState(() => {
     const hasVisited = sessionStorage.getItem('hasVisited');
-    if (hasVisited) {
-      setIsFirstVisit(false);
-    } else {
+    if (!hasVisited) {
       sessionStorage.setItem('hasVisited', 'true');
+      return true;
     }
-  }, []);
+    return false;
+  });
 
   const structuredData = useMemo(() => ({
     '@context': 'https://schema.org',
@@ -110,26 +87,49 @@ function AppContent() {
   const currentYear = new Date().getFullYear();
   const baseUrl = 'https://allankayan.cv';
 
+  const localeMap: Record<string, string> = {
+    en: 'en_US',
+    pt: 'pt_BR',
+    es: 'es_ES',
+    fr: 'fr_FR',
+    de: 'de_DE',
+    it: 'it_IT',
+    zh: 'zh_CN',
+    ja: 'ja_JP',
+    ko: 'ko_KR',
+    ar: 'ar_SA',
+    ru: 'ru_RU',
+    hi: 'hi_IN',
+    bn: 'bn_BD',
+    ur: 'ur_PK',
+    id: 'id_ID',
+    mr: 'mr_IN',
+    te: 'te_IN',
+    ta: 'ta_IN',
+    tr: 'tr_TR',
+    vi: 'vi_VN',
+  };
+
   return (
     <>
       <Helmet>
         <html lang={lang} />
         <title>Allan Kayan - Software Engineer</title>
-        <meta name="description" content="Allan Kayan - Software Engineer especializado em backend. Construindo soluções incríveis na @shiddotech, @onnechat e @oliquo." />
-        <meta name="keywords" content="Allan Kayan, Software Engineer, Backend Developer, Node.js, TypeScript, Python, Brasil" />
+        <meta name="description" content={t('meta.description')} />
+        <meta name="keywords" content={t('meta.keywords')} />
         <meta name="author" content="Allan Kayan" />
         <meta name="robots" content="index, follow" />
         
         <meta property="og:type" content="website" />
         <meta property="og:url" content={baseUrl} />
         <meta property="og:title" content="Allan Kayan - Software Engineer" />
-        <meta property="og:description" content="Software Engineer especializado em backend. Construindo soluções incríveis." />
-        <meta property="og:locale" content={lang} />
+        <meta property="og:description" content={t('meta.description')} />
+        <meta property="og:locale" content={localeMap[lang] || 'en_US'} />
         
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:creator" content="@kayan_allan" />
         <meta name="twitter:title" content="Allan Kayan - Software Engineer" />
-        <meta name="twitter:description" content="Software Engineer especializado em backend." />
+        <meta name="twitter:description" content={t('meta.description')} />
         
         <link rel="canonical" href={baseUrl} />
         <link rel="alternate" hrefLang="x-default" href={baseUrl} />
@@ -143,7 +143,7 @@ function AppContent() {
       <div className="min-h-screen bg-zinc-50 dark:bg-[#0a0a0a] text-zinc-900 dark:text-zinc-100 transition-colors duration-300">
         <header className="sticky top-0 z-50 backdrop-blur-md bg-zinc-50/80 dark:bg-[#0a0a0a]/80 border-b border-zinc-200 dark:border-zinc-800/60 transition-colors">
           <nav className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="/" className="text-lg font-medium text-zinc-900 dark:text-zinc-100 hover:text-black dark:hover:text-white transition-colors" aria-label="Ir para o início">
+            <a href="/" className="text-lg font-medium text-zinc-900 dark:text-zinc-100 hover:text-black dark:hover:text-white transition-colors" aria-label={t('nav.home')}>
               Allan Kayan
             </a>
             <div className="flex items-center gap-3">

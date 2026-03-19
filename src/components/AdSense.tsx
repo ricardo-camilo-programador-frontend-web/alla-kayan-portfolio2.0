@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { useI18n } from '../hooks/useI18n';
 
 const ADSENSE_CLIENT_ID = import.meta.env.VITE_ADSENSE_CLIENT_ID || '';
 
@@ -8,8 +7,6 @@ export interface AdSenseHorizontalProps {
 }
 
 export default function AdSenseHorizontal({ className = '' }: AdSenseHorizontalProps) {
-  const { t } = useI18n();
-
   useEffect(() => {
     if (!ADSENSE_CLIENT_ID) return;
 

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { translations, languages } from '../i18n';
 
 export interface Language {
@@ -14,24 +14,15 @@ export interface I18nContextType {
 }
 
 export function useI18n(): I18nContextType {
-  const [lang, setLang] = useState<string>('pt');
-  const [isInitialized, setIsInitialized] = useState(false);
-
-  // Inicializar idioma salvo ou detectar idioma do navegador
-  useEffect(() => {
+  const [lang, setLang] = useState<string>(() => {
+    if (typeof window === 'undefined') return 'pt';
     const savedLang = localStorage.getItem('app_lang');
-    if (savedLang) {
-      setLang(savedLang);
-    } else {
-      const browserLang = navigator.language.split('-')[0];
-      if (languages.some(l => l.code === browserLang)) {
-        setLang(browserLang);
-      }
-    }
-    setIsInitialized(true);
-  }, []);
+    if (savedLang) return savedLang;
+    const browserLang = navigator.language.split('-')[0];
+    if (languages.some(l => l.code === browserLang)) return browserLang;
+    return 'pt';
+  });
 
-  // Função de tradução otimizada
   const t = useCallback((key: string, ...args: string[]): string => {
     const dict = translations[lang] || translations['pt'];
     let text = dict[key] || translations['pt'][key] || key;
@@ -43,7 +34,6 @@ export function useI18n(): I18nContextType {
     return text;
   }, [lang]);
 
-  // Handler para mudança de idioma com persistência
   const handleLangChange = useCallback((newLang: string) => {
     setLang(newLang);
     localStorage.setItem('app_lang', newLang);
