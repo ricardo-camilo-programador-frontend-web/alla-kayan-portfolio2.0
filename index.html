@@ -3,9 +3,19 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- DNS prefetch para recursos externos -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+    <link rel="dns-prefetch" href="https://cdn.counter.dev" />
+    
     <!-- Preconnect para fontes externas -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Preload da fonte crítica Inter -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- Google Fonts com display: swap para melhor performance -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@1,6..72,400&display=swap" rel="stylesheet" />
@@ -15,6 +25,15 @@
 
     <!-- Counter.dev async -->
     <script async src="https://cdn.counter.dev/script.js" data-id="f30df6f3-776d-4154-959d-0210ac8a8325" data-utcoffset="-3"></script>
+    
+    <!-- Performance hint: Render blocking scripts carregados no final -->
+    <!-- Theme script para evitar flash de tema incorreto -->
+    <script>
+      (function() {
+        const theme = localStorage.getItem('theme') || 'light';
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+      })();
+    </script>
 </head>
 <body class="bg-zinc-50 text-zinc-600 dark:bg-zinc-950 dark:text-zinc-300 antialiased selection:bg-zinc-200 selection:text-zinc-900 dark:selection:bg-zinc-800 dark:selection:text-zinc-100 transition-colors duration-300">
     <div id="root"></div>

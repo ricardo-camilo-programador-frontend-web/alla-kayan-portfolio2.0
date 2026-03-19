@@ -1,3 +1,4 @@
+import { memo, useMemo } from 'react';
 import { motion } from 'motion/react';
 import { Code2 } from 'lucide-react';
 import { useI18n } from '../hooks/useI18n';
@@ -7,8 +8,20 @@ export interface SkillsSectionProps {
   isFirstVisit: boolean;
 }
 
-export default function SkillsSection({ isFirstVisit }: SkillsSectionProps) {
+function SkillsSection({ isFirstVisit }: SkillsSectionProps) {
   const { lang, t } = useI18n();
+  
+  // Memoize skills grid to prevent unnecessary re-renders
+  const skillsGrid = useMemo(() => (
+    <div className="grid gap-4 sm:grid-cols-2">
+      {skills.map((skill, idx) => (
+        <div key={idx} className="p-5 rounded-2xl bg-white dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800/50 hover:border-zinc-300 dark:hover:border-zinc-700/80 transition-colors">
+          <h4 className="font-medium text-zinc-900 dark:text-zinc-100 mb-2 transition-colors">{skill.name}</h4>
+          <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed transition-colors">{skill.details}</p>
+        </div>
+      ))}
+    </div>
+  ), []);
 
   return (
     <motion.section
@@ -23,14 +36,9 @@ export default function SkillsSection({ isFirstVisit }: SkillsSectionProps) {
         <h3 className="text-xl font-medium text-zinc-900 dark:text-zinc-100 tracking-tight transition-colors">{t(lang, 'skills')}</h3>
       </header>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        {skills.map((skill, idx) => (
-          <div key={idx} className="p-5 rounded-2xl bg-white dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800/50 hover:border-zinc-300 dark:hover:border-zinc-700/80 transition-colors">
-            <h4 className="font-medium text-zinc-900 dark:text-zinc-100 mb-2 transition-colors">{skill.name}</h4>
-            <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed transition-colors">{skill.details}</p>
-          </div>
-        ))}
-      </div>
+      {skillsGrid}
     </motion.section>
   );
 }
+
+export default memo(SkillsSection);
