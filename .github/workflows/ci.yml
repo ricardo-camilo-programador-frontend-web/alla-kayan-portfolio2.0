@@ -33,9 +33,9 @@ jobs:
     name: Build do Projeto
     runs-on: ubuntu-latest
     timeout-minutes: 15
-        env:
-          GEMINI_API_KEY: ""
-          APP_URL: ""
+    env:
+      GEMINI_API_KEY: ""
+      APP_URL: ""
     steps:
       - uses: actions/checkout@v4
 
