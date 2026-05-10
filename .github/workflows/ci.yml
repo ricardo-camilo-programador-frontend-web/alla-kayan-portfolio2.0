@@ -15,14 +15,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 9
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-          cache: 'pnpm'
+      - name: Setup PATH
+        run: echo "/home/camillusr/.hermes/node/bin" >> $GITHUB_PATH
 
       - name: Instalar dependencias
         run: pnpm install
@@ -40,14 +34,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 9
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-          cache: 'pnpm'
+      - name: Setup PATH
+        run: echo "/home/camillusr/.hermes/node/bin" >> $GITHUB_PATH
 
       - name: Instalar dependencias
         run: pnpm install
@@ -70,14 +58,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 9
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-          cache: 'pnpm'
+      - name: Setup PATH
+        run: echo "/home/camillusr/.hermes/node/bin" >> $GITHUB_PATH
 
       - name: Instalar dependencias
         run: pnpm install

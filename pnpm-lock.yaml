@@ -41,9 +41,6 @@ importers:
       react-helmet-async:
         specifier: ^2.0.5
         version: 2.0.5(react@19.2.4)
-      vite:
-        specifier: ^6.2.0
-        version: 6.4.1(@types/node@22.19.15)(jiti@2.6.1)(lightningcss@1.32.0)(tsx@4.21.0)
     devDependencies:
       '@types/express':
         specifier: ^4.17.21
@@ -63,6 +60,9 @@ importers:
       typescript:
         specifier: ~5.8.2
         version: 5.8.3
+      vite:
+        specifier: ^6.2.0
+        version: 6.4.1(@types/node@22.19.15)(jiti@2.6.1)(lightningcss@1.32.0)(tsx@4.21.0)
 
 packages:
 
