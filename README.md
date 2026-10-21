@@ -1,3 +1,4 @@
+[![CI](https://github.com/ricardo-camilo-programador-frontend-web/alla-kayan-portfolio2.0/actions/workflows/ci.yml/badge.svg)](https://github.com/ricardo-camilo-programador-frontend-web/alla-kayan-portfolio2.0/actions)
 # 🎤 Alla Kayan Portfolio 2.0
 
 <div align="center">
