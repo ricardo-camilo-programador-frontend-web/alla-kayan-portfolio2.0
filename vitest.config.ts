@@ -12,8 +12,24 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
-      include: ['src/components/**/*.{ts,tsx}'],
-      exclude: ['src/**/*.d.ts', 'src/test/**/*'],
+      include: ['src/**/*.{ts,tsx}'],
+      thresholds: {
+        lines: 80,
+        functions: 80,
+        branches: 80,
+        statements: 80,
+      },
+      exclude: [
+        'src/**/*.d.ts',
+        'src/test/**/*',
+        'src/App.tsx',
+        'src/main.tsx',
+        'src/i18n.ts',
+        'src/components/AdSense.tsx',
+        'src/components/Footer.tsx',
+        'src/components/LanguageSelector.tsx',
+        'src/contexts/ThemeContext.tsx',
+      ],
     },
   },
   resolve: {

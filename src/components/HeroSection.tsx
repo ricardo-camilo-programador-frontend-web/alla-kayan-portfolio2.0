@@ -21,17 +21,17 @@ export default function HeroSection({ isFirstVisit }: HeroSectionProps) {
           Allan Kayan
         </h1>
         <h2 className="text-xl text-zinc-500 dark:text-zinc-400 font-medium tracking-tight transition-colors">
-          {t(lang, 'role')}
+          {t('role')}
         </h2>
       </div>
 
       <p className="text-lg leading-relaxed text-zinc-600 dark:text-zinc-400 max-w-2xl transition-colors">
-        {t(lang, 'building')}{' '}
+        {t('building')}{' '}
         <a href="#" className="text-zinc-900 dark:text-zinc-100 hover:text-black dark:hover:text-white hover:underline decoration-zinc-300 dark:decoration-zinc-700 underline-offset-4 transition-all" aria-label="Company @shiddotech">@shiddotech</a>,{' '}
-        <a href="#" className="text-zinc-900 dark:text-zinc-100 hover:text-black dark:hover:text-white hover:underline decoration-zinc-300 dark:decoration-zinc-700 underline-offset-4 transition-all" aria-label="Company @onnechat">@onnechat</a> {t(lang, 'and')}{' '}
+        <a href="#" className="text-zinc-900 dark:text-zinc-100 hover:text-black dark:hover:text-white hover:underline decoration-zinc-300 dark:decoration-zinc-700 underline-offset-4 transition-all" aria-label="Company @onnechat">@onnechat</a> {t('and')}{' '}
         <a href="#" className="text-zinc-900 dark:text-zinc-100 hover:text-black dark:hover:text-white hover:underline decoration-zinc-300 dark:decoration-zinc-700 underline-offset-4 transition-all" aria-label="Company @oliquo">@oliquo</a>.
         <br className="hidden sm:block" />
-        {t(lang, 'bio')}
+        {t('bio')}
       </p>
 
       <div className="flex flex-wrap items-center gap-4 pt-2">

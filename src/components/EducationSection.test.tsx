@@ -6,7 +6,7 @@ import EducationSection from './EducationSection';
 vi.mock('../hooks/useI18n', () => ({
   useI18n: () => ({
     lang: 'pt',
-    t: (_lang: string, key: string) => {
+    t: (key: string) => {
       const translations: Record<string, string> = {
         education: 'Educação',
       };
