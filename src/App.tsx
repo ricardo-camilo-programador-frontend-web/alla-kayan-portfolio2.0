@@ -67,9 +67,13 @@ function AppContent() {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'Allan Kayan',
+    givenName: 'Allan',
+    familyName: 'Kayan',
     jobTitle: 'Software Engineer',
+    description: t('meta.description'),
     email: 'allankayan@hotmail.com',
     url: 'https://allankayan.cv/',
+    image: 'https://allankayan.cv/og-image.png',
     sameAs: [
       'https://github.com/allankayan',
       'https://www.linkedin.com/in/allankayan/',
@@ -81,8 +85,22 @@ function AppContent() {
       'Node.js',
       'TypeScript',
       'Python',
+      'Software Architecture',
+      'API Development',
+      'Database Design',
     ],
-  }), []);
+    alumniOf: {
+      '@type': 'EducationalOrganization',
+      name: 'Universidade Federal',
+    },
+    workLocation: {
+      '@type': 'Place',
+      address: {
+        '@type': 'PostalAddress',
+        addressCountry: 'BR',
+      },
+    },
+  }), [t]);
 
   const currentYear = new Date().getFullYear();
   const baseUrl = 'https://allankayan.cv';
@@ -118,25 +136,44 @@ function AppContent() {
         <meta name="description" content={t('meta.description')} />
         <meta name="keywords" content={t('meta.keywords')} />
         <meta name="author" content="Allan Kayan" />
-        <meta name="robots" content="index, follow" />
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <meta name="googlebot" content="index, follow" />
+        <meta name="theme-color" content="#18181b" media="(prefers-color-scheme: dark)" />
+        <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+        <meta name="msapplication-TileColor" content="#18181b" />
+        <link rel="manifest" href="/manifest.json" />
         
-        <meta property="og:type" content="website" />
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="profile" />
         <meta property="og:url" content={baseUrl} />
         <meta property="og:title" content="Allan Kayan - Software Engineer" />
         <meta property="og:description" content={t('meta.description')} />
         <meta property="og:locale" content={localeMap[lang] || 'en_US'} />
+        <meta property="og:site_name" content="Allan Kayan Portfolio" />
+        <meta property="og:image" content={`${baseUrl}/og-image.png`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Allan Kayan - Software Engineer" />
+        <meta property="profile:first_name" content="Allan" />
+        <meta property="profile:last_name" content="Kayan" />
         
+        {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@kayan_allan" />
         <meta name="twitter:creator" content="@kayan_allan" />
         <meta name="twitter:title" content="Allan Kayan - Software Engineer" />
         <meta name="twitter:description" content={t('meta.description')} />
+        <meta name="twitter:image" content={`${baseUrl}/og-image.png`} />
+        <meta name="twitter:image:alt" content="Allan Kayan - Software Engineer" />
         
+        {/* Canonical and Alternate Languages */}
         <link rel="canonical" href={baseUrl} />
         <link rel="alternate" hrefLang="x-default" href={baseUrl} />
         {languages.map((l) => (
           <link key={l.code} rel="alternate" hrefLang={l.code} href={`${baseUrl}/?lang=${l.code}`} />
         ))}
         
+        {/* Structured Data */}
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
       </Helmet>
 

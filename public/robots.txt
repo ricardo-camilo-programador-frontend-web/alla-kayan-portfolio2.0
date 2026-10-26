@@ -5,8 +5,24 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://allankayan.com/sitemap.xml
+Sitemap: https://allankayan.cv/sitemap.xml
 
 # Bloquear áreas administrativas ou internas (se houver)
 Disallow: /admin/
 Disallow: /api/
+
+# Crawl-delay para não sobrecarregar o servidor
+Crawl-delay: 1
+
+# Regras específicas para bots principais
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
