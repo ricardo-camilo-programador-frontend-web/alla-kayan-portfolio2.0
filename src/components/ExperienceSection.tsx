@@ -70,7 +70,7 @@ function ExperienceSection({ isFirstVisit }: ExperienceSectionProps) {
     >
       <header className="flex items-center gap-3 border-b border-zinc-200 dark:border-zinc-800/60 pb-4 transition-colors">
         <Briefcase className="w-5 h-5 text-zinc-400 dark:text-zinc-500" aria-hidden="true" />
-        <h3 className="text-xl font-medium text-zinc-900 dark:text-zinc-100 tracking-tight transition-colors">{t(lang, 'experience')}</h3>
+        <h3 className="text-xl font-medium text-zinc-900 dark:text-zinc-100 tracking-tight transition-colors">{t('experience')}</h3>
       </header>
 
       {experienceList}

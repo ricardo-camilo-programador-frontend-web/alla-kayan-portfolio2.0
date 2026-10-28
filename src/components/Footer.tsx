@@ -17,10 +17,10 @@ export default function Footer({ isFirstVisit }: FooterProps) {
     >
       <div className="flex flex-col gap-2">
         <p className="text-zinc-500 text-sm transition-colors">
-          © {new Date().getFullYear()} Allan Kayan. {t(lang, 'rights')}
+          © {new Date().getFullYear()} Allan Kayan. {t('rights')}
         </p>
         <p className="text-zinc-500 dark:text-zinc-600 text-xs transition-colors">
-          {t(lang, 'developedBy')}{' '}
+          {t('developedBy')}{' '}
           <a
             href="https://github.com/ricardo-camilo-programador-frontend-web"
             target="_blank"
@@ -33,7 +33,7 @@ export default function Footer({ isFirstVisit }: FooterProps) {
         </p>
       </div>
       <p className="text-zinc-400 font-serif italic text-lg transition-colors">
-        {t(lang, 'blessed')}
+        {t('blessed')}
       </p>
     </motion.footer>
   );

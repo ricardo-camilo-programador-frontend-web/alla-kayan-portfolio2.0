@@ -9,10 +9,21 @@ on:
 jobs:
   validate:
     name: Validar Linting e Formatacao
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
 
       - name: Setup PATH
         run: echo "/usr/local/bin" >> $GITHUB_PATH
@@ -30,13 +41,24 @@ jobs:
 
   build:
     name: Build do Projeto
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
       GEMINI_API_KEY: ""
       APP_URL: ""
     steps:
       - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
 
       - name: Setup PATH
         run: echo "/usr/local/bin" >> $GITHUB_PATH
@@ -61,11 +83,22 @@ jobs:
 
   security:
     name: Auditoria de Seguranca
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     continue-on-error: true
     steps:
       - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
 
       - name: Setup PATH
         run: echo "/usr/local/bin" >> $GITHUB_PATH
@@ -100,22 +133,49 @@ jobs:
 
   sonar:
     name: Analise SonarQube
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup PATH
-        run: echo "/usr/local/bin" >> $GITHUB_PATH
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+        with:
+          fetch-depth: 0
+
+      - name: Check SonarQube configuration
+        id: sonar_check
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          if [ -z "$SONAR_TOKEN" ] || [ ! -f sonar-project.properties ]; then
+            echo "::notice::SONAR_TOKEN ou sonar-project.properties nao configurados. Analise SonarQube ignorada."
+            echo "sonar_enabled=false" >> $GITHUB_OUTPUT
+          else
+            echo "sonar_enabled=true" >> $GITHUB_OUTPUT
+          fi
+
       - name: Cache pnpm store
+        if: steps.sonar_check.outputs.sonar_enabled == 'true'
         uses: actions/cache@v3
         with:
           path: ~/.local/share/pnpm/store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
 
       - name: Instalar dependencias
+        if: steps.sonar_check.outputs.sonar_enabled == 'true'
         run: pnpm install --ignore-scripts
 
       - name: Run SonarScanner
+        if: steps.sonar_check.outputs.sonar_enabled == 'true'
+        uses: SonarSource/sonarqube-scan-action@v5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: /opt/sonar-scanner/bin/sonar-scanner
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
